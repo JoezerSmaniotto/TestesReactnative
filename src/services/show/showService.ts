@@ -24,7 +24,10 @@ interface SearchShowResult {
   show: Show;
 }
 async function searchByName(searchText: string): Promise<Show[]> {
-  if (searchByName.length < 1) return [];
+  if (searchByName.length < 1) {
+    return [];
+  }
+
   const {data} = await api.get<SearchShowResult[]>(
     `search/shows/?q=${searchText}`,
   );
@@ -34,11 +37,13 @@ async function searchByName(searchText: string): Promise<Show[]> {
 }
 
 async function getEpisodes(showId: string): Promise<GroupedEpisodes> {
+  //Chamada a API
   const {data} = await api.get<Episode[]>(`shows/${showId}/episodes`);
-
+  // Agrupamento dos episódios
   const seasons = commonUtils.groupBy(data, 'season');
+  // Extração dos nomes
   const seasonNames = Object.keys(seasons);
-
+  // Retorno
   return {seasonNames, seasons};
 }
 

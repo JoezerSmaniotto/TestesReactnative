@@ -11,6 +11,7 @@ interface Props {
 
 export const SeasonModal = React.forwardRef<Modalize, Props>(
   ({seasons, onSelectSeason}, ref) => {
+    //
     function handleSelect(value: string) {
       onSelectSeason(value);
       ref?.current?.close();
